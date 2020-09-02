@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "882057234743",
+    "firebase_url": "https://easy-parking-project-dd163.firebaseio.com",
+    "project_id": "easy-parking-project-dd163",
+    "storage_bucket": "easy-parking-project-dd163.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:882057234743:android:7cc17f4c93f45df7c8f2b2",
+        "android_client_info": {
+          "package_name": "com.smartherd.flutterapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "882057234743-8e4l372ksbg2nkq6uvoa5tl48ujcbprv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCad3XuRDCyJZdbnjXxR6GM790l89x8kBo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "882057234743-8e4l372ksbg2nkq6uvoa5tl48ujcbprv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

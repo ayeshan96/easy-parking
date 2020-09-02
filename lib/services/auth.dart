@@ -1,0 +1,88 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutterapp/models/user.dart';
+import 'package:flutterapp/screens/authenticate/authenticate.dart';
+import 'package:flutterapp/services/database.dart';
+
+class AuthService{
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  //create user object based on firebase user
+  User _userFromFirebaseUser(FirebaseUser user){
+    return user != null ? User(uid: user.uid) : null;
+  }
+
+  //auth change user stream
+  Stream<User>get user{
+    return _auth.onAuthStateChanged
+        //.map((FirebaseUser user)=>_userFromFirebaseUser(user));
+        .map(_userFromFirebaseUser);
+  }
+
+  //sign in annonimus
+  Future signInAnon() async{
+    try{
+      AuthResult result = await _auth.signInAnonymously();
+      FirebaseUser user = result.user;
+      return _userFromFirebaseUser(user);
+    }catch(e){
+      print(e.toString());
+      return null;
+    }
+  }
+
+
+  //login with email & password
+  Future loginWithEmailAndPassword(String email, String password)async{
+    try{
+      AuthResult result=await _auth.signInWithEmailAndPassword(email: email, password: password);
+      FirebaseUser user=result.user;
+      return _userFromFirebaseUser(user);
+    }catch(e){
+      print(e.toString());
+      return null;
+    }
+
+  }
+
+
+
+  //signup with email & password
+  Future signupWithEmailAndPassword(String name, String phoneNumber,String email, String password)async{
+    try{
+      AuthResult result=await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      FirebaseUser user=result.user;
+
+      //create a new document for the user with the uid
+      await DatabaseService(uid: user.uid).updateUserDetails(name,phoneNumber,email);
+
+      return _userFromFirebaseUser(user);
+    }catch(e){
+      print(e.toString());
+      return null;
+    }
+
+  }
+
+  //sign out
+  Future signOut() async{
+    try{
+      print("Signout%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+      return await _auth.signOut();
+
+    }catch(e){
+        print(e.toString());
+        return null;
+    }
+  }
+
+  //get UID
+  Future<String> gettingCurrentUID()async{
+    String uid=(await _auth.currentUser()).uid;
+    return uid;
+  }
+
+
+
+}
